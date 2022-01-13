@@ -1,13 +1,19 @@
+## git
+
 git push -u origin main
 
 git commit -m " "
 
 git push
 
-## md file table 
-
+## md file 
+```
+이미지
+![Alt text](/path/to/img.jpg "Optional title")
+```
 
 ```
+테이블
 |제목|내용|설명|
 |---|---|---|
 |테스트1|*강조1*|테스트3|
@@ -21,6 +27,7 @@ git push
 |왼쪽에서확장||
 ```
 
+## python 함수
 ```
 최대 공약수 import math 
 def gcd(a,b): return b if (a==0) else gcd(b%a,a) 
