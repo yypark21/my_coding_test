@@ -10,6 +10,9 @@ git push
 ```
 이미지
 ![Alt text](/path/to/img.jpg "Optional title")
+
+<img src=https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/cf7517dd-e241-4fc8-a134-1d4d31f082b2/img1.png width="60%" height="30%" ></img>
+
 ```
 
 ```
