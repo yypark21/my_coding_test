@@ -20,3 +20,11 @@ git push
 |||오른쪽에서 확장|
 |왼쪽에서확장||
 ```
+
+```
+최대 공약수 import math 
+def gcd(a,b): return b if (a==0) else gcd(b%a,a) 
+
+올림
+-((a-100)//b))
+```
