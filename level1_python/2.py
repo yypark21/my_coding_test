@@ -1,10 +1,3 @@
-import re
-
-st='absdfSVDFAsw123.'
-st = re.sub('[^a]|[.]$', '', st)
-print(st)
-
-
 def solution(new_id):
     answer = ''
     
@@ -23,7 +16,6 @@ def solution(new_id):
             if len(answer) >= 3:
                 break
     return answer
-
 
 
 # import re
