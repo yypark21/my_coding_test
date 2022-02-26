@@ -10,16 +10,16 @@ def is_prime_num(n):
 def solution(n, k):
     rev_base = ''
     answer = 0
-    answers = ''
 
     while n > 0:
         n, mod = divmod(n, k)
         rev_base += str(mod)
     
     for i in rev_base[::-1].split('0'):
+        if not i: continue
         if i != '1':
             answer += is_prime_num(int(i))
-
+            
     return answer
 
 
