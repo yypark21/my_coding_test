@@ -2,8 +2,9 @@ import xml.etree.ElementTree as ET
 import glob
 import copy
 import os
+from tqdm import tqdm
 
-for targetDir in sorted(glob.glob('./*.xml')):
+for targetDir in tqdm(sorted(glob.glob('./*.xml'))):
 
     xml_file = open((targetDir), 'rt', encoding='UTF8')
     anno = ET.parse(xml_file)
