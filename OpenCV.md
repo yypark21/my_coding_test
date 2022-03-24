@@ -33,4 +33,25 @@ waitKey(0);                                      // 콘솔할 때, 이미지 바
 waitKey() == 27                                을 사용하여 'esc'를 눌러 종료
 
 
-       
+//unsined char 로 받아서 사용하는 방법
+	Mat imgGray(1280, 960, CV_8UC3, Scalar(0));
+	//imgGray를 1280x960,8Bit 할당, 
+	//imgGrayf를 픽셀 0으로 세팅
+	
+
+	uchar* pImgBuffer = imgGray.data;
+	for (int row = 0; row < 100; row++)
+	{
+		for (int col = 0; col < 100; col++)
+		{
+			uchar b = pImgBuffer[row * imgGray.cols * 3 + col * 3] = 128;
+			uchar g = pImgBuffer[row * imgGray.cols * 3 + col * 3 + 1] = 128;
+			uchar r = pImgBuffer[row * imgGray.cols * 3 + col * 3 + 2] = 128;
+		}
+	}
+
+	Mat imgGray2(1280, 960, CV_8UC3);
+	imgGray2.data = pImgBuffer;
+
+	imshow("imgGray", imgGray);
+	imshow("imgGray2", imgGray);
