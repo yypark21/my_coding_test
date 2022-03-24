@@ -57,9 +57,7 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 	imshow("imgGray2", imgGray);
 ///
 ///
-	Mat MatGray(iImgHeight, iImgWidth, CV_8UC1, Scalar(0)); // 세로, 가로 
-	//imgGray를 1280x960,8Bit 할당, 
-	//imgGrayf를 픽셀 0으로 세팅
+	Mat MatGray(iImgHeight, iImgWidth, CV_8UC1, Scalar(0)); // 세로, 가로  imgGray를 1280x960, 8Bit  0으로 세팅
 
 
 	uchar* pImgBuffer = MatGray.data;
@@ -87,5 +85,4 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 			}
 		}
 	}
-```
 
