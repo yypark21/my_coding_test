@@ -34,11 +34,11 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 
 
 //unsined char 로 받아서 사용하는 방법
-	Mat imgGray(1280, 960, CV_8UC3, Scalar(0));
+	Mat imgGray(960, 1280, CV_8UC1, Scalar(0)); //8bit
+	Mat imgGray(960, 1280, CV_8UC3, Scalar(0)); //24bit
 	//imgGray를 1280x960,8Bit 할당, 
 	//imgGrayf를 픽셀 0으로 세팅
 	
-
 	uchar* pImgBuffer = imgGray.data;
 	for (int row = 0; row < 100; row++)
 	{
@@ -50,7 +50,7 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 		}
 	}
 
-	Mat imgGray2(1280, 960, CV_8UC3);
+	Mat imgGray2(960, 1280, CV_8UC3);
 	imgGray2.data = pImgBuffer;
 
 	imshow("imgGray", imgGray);
