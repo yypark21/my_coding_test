@@ -55,3 +55,37 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 
 	imshow("imgGray", imgGray);
 	imshow("imgGray2", imgGray);
+///
+///
+	Mat MatGray(iImgHeight, iImgWidth, CV_8UC1, Scalar(0)); // 세로, 가로 
+	//imgGray를 1280x960,8Bit 할당, 
+	//imgGrayf를 픽셀 0으로 세팅
+
+
+	uchar* pImgBuffer = MatGray.data;
+	start = NULL;
+	for (int y = 200; y < 300; y++)
+	{
+		for (int x = 100; x < 200; x++)
+		{
+			pImgBuffer[x  + y * iImgWidth] = 128;
+		}
+	}
+	
+	int iRadius = 100; // 반지름
+	int iCx, iCy;
+	iCx = iImgWidth / 2;
+	iCy = iImgHeight / 2;
+
+	for (int y = -iRadius; y <= iRadius; y++)
+	{
+		for (int x = -iRadius; x <= iRadius; x++)
+		{
+			if (y * y + x * x <= iRadius * iRadius)
+			{
+				pImgBuffer[x + iCx + (y + iCy) * 1280 ] = 128;
+			}
+		}
+	}
+```
+
