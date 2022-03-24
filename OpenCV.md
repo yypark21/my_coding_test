@@ -55,7 +55,7 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 
 	imshow("imgGray", imgGray);
 	imshow("imgGray2", imgGray);
-///
+
 ///
 	Mat MatGray(iImgHeight, iImgWidth, CV_8UC1, Scalar(0)); // 세로, 가로  imgGray를 1280x960, 8Bit  0으로 세팅
 
