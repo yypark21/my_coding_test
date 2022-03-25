@@ -88,3 +88,125 @@ waitKey() == 27                                을 사용하여 'esc'를 눌러 
 	}
 
 ```
+
+
+OpenCV 이미지 MFC에서 열기 
+
+https://luckygg.tistory.com/117
+
+```
+Dlg.h
+
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/types_c.h>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#pragma comment (lib, "opencv_world345d")
+using namespace cv;
+
+
+class COpenCVTestDlg : public CDialogEx
+{
+...
+public :
+	Mat m_matImage; // 이미지 정보를 담고 있는 객체.
+	BITMAPINFO *m_pBitmapInfo; // Bitmap 정보를 담고 있는 구조체.
+
+	void CreateBitmapInfo(int w, int h, int bpp); // Bitmap 정보를 생성하는 함수.
+	void DrawImage(); // 그리는 작업을 수행하는 함수.
+// Implementation
+...
+}
+
+Dlg.cpp
+
+COpenCVTestDlg::COpenCVTestDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(IDD_OPENCVTEST_DIALOG, pParent)
+{
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	m_pBitmapInfo = NULL;         //초기화
+}
+
+
+
+
+void COpenCVTestDlg::OnBnClickedBtnImageload()
+{
+	CFileDialog fileDlg(TRUE, NULL, NULL, OFN_READONLY, _T("image file(*.jpg;*.bmp;*.png;)|*.jpg;*.bmp;*.png;|All Files(*.*)|*.*||"));
+	if (fileDlg.DoModal() == IDOK)
+	{
+		CString path = fileDlg.GetPathName();
+
+		CT2CA pszString(path);
+		std::string strPath(pszString);
+
+		m_matImage = imread(strPath, IMREAD_UNCHANGED);
+
+		CreateBitmapInfo(m_matImage.cols, m_matImage.rows, m_matImage.channels()*8);
+
+		DrawImage();
+	}
+}
+
+void COpenCVTestDlg::CreateBitmapInfo(int w, int h, int bpp)
+{
+	if (m_pBitmapInfo != NULL)
+	{
+		delete m_pBitmapInfo;
+		m_pBitmapInfo = NULL;
+	}
+
+	if (bpp == 8)
+		m_pBitmapInfo = (BITMAPINFO *) new BYTE[sizeof(BITMAPINFO) + 255 * sizeof(RGBQUAD)];
+	else // 24 or 32bit
+		m_pBitmapInfo = (BITMAPINFO *) new BYTE[sizeof(BITMAPINFO)];
+
+	m_pBitmapInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	m_pBitmapInfo->bmiHeader.biPlanes = 1;
+	m_pBitmapInfo->bmiHeader.biBitCount = bpp;
+	m_pBitmapInfo->bmiHeader.biCompression = BI_RGB;
+	m_pBitmapInfo->bmiHeader.biSizeImage = 0;
+	m_pBitmapInfo->bmiHeader.biXPelsPerMeter = 0;
+	m_pBitmapInfo->bmiHeader.biYPelsPerMeter = 0;
+	m_pBitmapInfo->bmiHeader.biClrUsed = 0;
+	m_pBitmapInfo->bmiHeader.biClrImportant = 0;
+
+	if (bpp == 8)
+	{
+		for (int i = 0; i < 256; i++)
+		{
+			m_pBitmapInfo->bmiColors[i].rgbBlue = (BYTE)i;
+			m_pBitmapInfo->bmiColors[i].rgbGreen = (BYTE)i;
+			m_pBitmapInfo->bmiColors[i].rgbRed = (BYTE)i;
+			m_pBitmapInfo->bmiColors[i].rgbReserved = 0;
+		}
+	}
+	
+	m_pBitmapInfo->bmiHeader.biWidth = w;
+	m_pBitmapInfo->bmiHeader.biHeight = -h;
+}
+
+void COpenCVTestDlg::DrawImage()
+{
+	CClientDC dc(GetDlgItem(IDC_PC_VIEW));
+
+	CRect rect;
+	GetDlgItem(IDC_PC_VIEW)->GetClientRect(&rect);
+
+	SetStretchBltMode(dc.GetSafeHdc(), COLORONCOLOR);
+	StretchDIBits(dc.GetSafeHdc(), 0, 0, rect.Width(), rect.Height(), 0, 0, m_matImage.cols, m_matImage.rows, m_matImage.data, m_pBitmapInfo, DIB_RGB_COLORS, SRCCOPY);
+}
+
+void COpenCVTestDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	if (m_pBitmapInfo != NULL)
+	{
+		delete m_pBitmapInfo;
+		m_pBitmapInfo = NULL;
+	}
+}
+
+
