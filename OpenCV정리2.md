@@ -4,12 +4,19 @@
 2) Mat img(H,W, CV_8UC1, Scalar(0));
 
 3) uchar* img_data = img.data;
+ 
  	// img에서 받은 데이터가 color일 때 접근법 (3개의 값)
+	
 	uchar b = img_data[y * img.cols * 3 + x * 3];
+	
 	uchar g = img_data[y * img.cols * 3 + x * 3 + 1];
+	
 	uchar r = img_data[y * img.cols * 3 + x * 3 + 2];
+	
 	// 흑백일 때 접근법
+	
 	pImgBuffer[x  + y * img.cols] = 128;
+	
 
 
 함수
