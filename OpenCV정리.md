@@ -10,19 +10,22 @@ C/C++-일반 추가 포함 디렉터리에  C:\opencv\build\include 추가
 
 링커 - 입력 - 추가 종속성  opencv_world---d.lib; 추가 (버전에 맞춰서)
 ///////////////////////////////////////////////
+	static taxt 에 CString 메세지 출력
+  
+  ```
+  GetDlgItem(IDC_STATIC_INFO)->SetWindowText(strMsg);
+  ```
+  
+  시간 재는 방법
+  ```
+  	INT64 result;
+	  INT64 dTick1, dTick2;
+  	dTick1 = GetTickCount();
+  	dTick2 = GetTickCount();
+	  result = (dTick2 - dTick1);
+    ```
+//////////////////////////////////////////////////////
 
-Mat img =  imread(PATH);
-
-Mat imgResize; 
-
-resize(img, imgResize, Size(), 0.5, 0.5);   // 이미지 사이지 줄이는 함수
-
-imshow("이름", img);     // 이미지 보여주는 함수
-
-
-Mat ColorChange;
-
-cvtColor(img, ColorChange, COLOR_BGR2GRAY); // 컬러를 흑백으로 하는 함수
 
 img 안에 Circle 그리기
 img.copyTo(img_circle);   // copy하는 함수
