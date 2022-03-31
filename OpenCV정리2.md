@@ -1,4 +1,4 @@
-##선언
+선언
 1) Mat img = imread(PATH);
 
 2) Mat img(H,W, CV_8UC1, Scalar(0));
@@ -6,7 +6,7 @@
 3) uchar* img_data = img.data;
 
 
-##함수
+함수
 
 imshow("창이름", img);				// 이미지 창으로 출력
 resize(img, imgResize, Size(), 0.5, 0.5);   		// 이미지 사이지 줄이는 함수
