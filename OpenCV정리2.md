@@ -31,10 +31,10 @@
 
 함수
 
-imshow("창이름", img);				// 이미지 창으로 출력
+imshow("창이름", img);				     // 이미지 창으로 출력
 resize(img, imgResize, Size(), 0.5, 0.5);   		// 이미지 사이지 줄이는 함수
 cvtColor(img, ColorChange, COLOR_BGR2GRAY);		// 컬러를 흑백으로 하는 함수
-			COLOR_BGR2HSV		// BGR -> HSV 로 변경
+			COLOR_BGR2HSV			// BGR -> HSV 로 변경
 img.copyTo(img_circle);   				// copy하는 함수 (=으로 할 시 주소값이 복사되어서 copyTo사용)
 inRange(img_hsv, lower_hsv, upper_hsv, mask);	 	// 범위 값 내의 픽셀만 뽑아서 저장하는 함수
 bitwise_not(img, saved_img);				// not 흑색 -> 백색, 백색-> 흑색
@@ -49,4 +49,9 @@ rectangle(img, Rect(200, 200, 300, 300), Scalar(255, 255, 255), 1, 8, 0);
 //사각형 그리기 맨 뒤 3개 값 중 첫 번 째는 선의 굵기 두 번째는 선의 타입(-1 안을 채워넣음) 세 번 째는 shift 주로 0으로 함
 각종 필터 적용
 https://diyver.tistory.com/91?category=911404
+
+floodFill(im_clone, Point(0, 0), Scalar(255)); // point 부터 다른 색을 찾아가는 함수 ? 전체를 하기 때문에 속도에서 ... 구석에 채우고 싶은 부분이 있을 때?
+Canny(img, img_edge, 50, 200);     			// 경계선을 뚜렷하게 해주는 함수? 
+erode(img, dst, mask, Point(-1, -1), 3); 		// 침식
+dilate(img, dst, mask, Point(-1, -1), 3);		// 팽창
 ```
