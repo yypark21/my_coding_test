@@ -54,4 +54,23 @@ floodFill(im_clone, Point(0, 0), Scalar(255)); // point 부터 다른 색을 찾
 Canny(img, img_edge, 50, 200);     			// 경계선을 뚜렷하게 해주는 함수? 
 erode(img, dst, mask, Point(-1, -1), 3); 		// 침식
 dilate(img, dst, mask, Point(-1, -1), 3);		// 팽창
+
+
+
+// 원을 찾아주는 함수
+vector<Vec3f> circles;
+HoughCircles(img_houghC, circles, HOUGH_GRADIENT, 1, 100, 50, 35, 0, 0);
+// circles 부분에 원에 대한 정보가 저장 됨. HOUGH_GRADIENT : 원을 검출하는 방법, 1: 픽셀값, 100: 검출할 원의 최소거리(원들 간의 거리?) 50, 35 Canny 엣지 검출에서 큰값과 작은 값 0, 검출될 원의 최소 반지름, 최대 반지름
+
+// 같이 쓰면 좋은 함수 (원과 중심점을 그려준다.)
+for (size_t i = 0; i < circles.size(); i++)
+{
+	Vec3i c = circles[i];
+	Point center(c[0], c[1]);
+	int radius = c[2];
+
+	circle(img_houghC, center, radius, Scalar(0, 255, 0), 2);
+	circle(img_houghC, center, 2, Scalar(0, 0, 255), 3);
+}
+
 ```
