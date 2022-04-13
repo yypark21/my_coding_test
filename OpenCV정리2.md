@@ -47,8 +47,27 @@ circle(img_circle, Point(500, 100), 50, Scalar(255, 0, 255), 1, 8, 0);
 rectangle(img, Rect(Point(200, 200), Point(300, 300)), Scalar(0, 0, 0), 1, 8, 0);
 rectangle(img, Rect(200, 200, 300, 300), Scalar(255, 255, 255), 1, 8, 0); 
 //사각형 그리기 맨 뒤 3개 값 중 첫 번 째는 선의 굵기 두 번째는 선의 타입(-1 안을 채워넣음) 세 번 째는 shift 주로 0으로 함
+
+////필터 부분
 각종 필터 적용
 https://diyver.tistory.com/91?category=911404
+
+GaussianBlur(img, img_blur, Size(7, 7), 0);   // 흐리게 ??
+Mat emboss(3,3,CV_32FC1, kernel);
+filter2D(src, dst, -1, emboss, Point(-1,-1), 128);   // emboss 선명한걸 더 선명하게?
+blur(src,dst, Size(ksize,ksize));     //평균값 필터링 <- 가우시안 보다 느리고 효율이 떨어지는 듯? ksize가 클 때는 더 빠를지도
+GaussianBlur(src,dst,Size(),double(sigma)); //가우시안 필터
+bilateralFilter(src, dst2, -1, 10, 5);  // 가우시안 필터와 다르게 표준편차를 이용한다. 
+medianBlur(src, dst2, 3);   // 소금, 후추 같은 부분이 있을때,
+
+GaussianBlur(src, blurred, Size(), sigma);
+float alpha = 1.f;
+Mat dst = (1 + alpha)*src - alpha * blurred;  // 영상을 더 선명하게 해준다-> 원본에 가우시안블러를 적용한 이미지를 더해줌
+
+Mat noise(src.size(), CV_32SC1);
+randn(noise, 0, stddev);
+add(src, noise, dst, Mat(), CV_8U);    // 영상에 랜덤 노이즈를 더해준다
+////////////////////////////////////////필터/////////////
 
 floodFill(im_clone, Point(0, 0), Scalar(255)); // point 부터 다른 색을 찾아가는 함수 ? 전체를 하기 때문에 속도에서 ... 구석에 채우고 싶은 부분이 있을 때?
 Canny(img, img_edge, 50, 200);     			// 경계선을 뚜렷하게 해주는 함수? 
